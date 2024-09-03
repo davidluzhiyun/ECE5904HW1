@@ -29,6 +29,7 @@
                         // revert to previous the valid zip or blank
                         console.log(document.getElementById("zip"))
                         document.getElementById("zip").value = previousZip;
+                        // throw error so that the function doesn't keep executing
                         throw error;
                     });
                 const json = await data.json();
@@ -47,6 +48,7 @@
                 }
 
                 // change to stuff to handle result
+                // remember to await! or else the this function will keep running when waiting for alert to be closed
                 responseData = await fetchData(zip)
                 //TODO: update previousZip after fetching 
                 previousZip = zip;
