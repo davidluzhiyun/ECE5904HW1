@@ -5,19 +5,26 @@
         <!--Base on https://www.w3schools.com/html/html_css.asp-->
         <link rel="stylesheet" href="table_style.css">
         <script>
-            function is_zip(my_str) {
+            function isZip(my_str) {
                 // based on https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/test
                 // str is the str that we recieve from the input
                 // regex to test if a US zip code is entered
-                const re = /\d{5}/
+                const re = /\d{5}/;
                 const result = re.test(my_str);
                 return result;
+            }
+
+            function onZipSubmission(){
+                const zip = document.getElementById("zip").value;
+                if (!isZip(zip)){
+                    alert("Invalid US zip code");
+                }
             }
         </script>
     </head>
     <body>
         <p>Enter a zip code</p>
-        <input type="text" id="zip"> <button>Get Forecast</button>
+        <input type="text" id="zip"> <button onclick="onZipSubmission()">Get Forecast</button>
     </body>
     <h1 id="locale">Weather</h1>
     <p>Current Temperature</p>
