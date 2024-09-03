@@ -5,6 +5,8 @@
         <!--Base on https://www.w3schools.com/html/html_css.asp-->
         <link rel="stylesheet" href="table_style.css">
         <script>
+            const apiKey = "79c4fe56c5264162aba15443240309"
+
             function isZip(my_str) {
                 // based on https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/test
                 // str is the str that we recieve from the input
@@ -14,11 +16,25 @@
                 return result;
             }
 
+            async function fetchData(zip) {
+                // fetches data from api with fetch API
+                const base = "http://api.weatherapi.com/v1/forecast.json?key=";
+                const ending = "&days=3&aqi=no&alerts=no";
+                const url = base + apiKey + "&q=" + zip;
+                const data = await fetch(url)
+                // if there is a error log and alert
+                    .catch((error) => {console.log(error);alert(error)});
+                const json = await data.json();
+                return json;
+            }
+
             function onZipSubmission(){
                 const zip = document.getElementById("zip").value;
                 if (!isZip(zip)){
                     alert("Invalid US zip code");
+                    return;
                 }
+                console.log(fetchData(zip));
             }
         </script>
     </head>
