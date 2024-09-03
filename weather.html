@@ -4,6 +4,16 @@
         <title>Weather</title>
         <!--Base on https://www.w3schools.com/html/html_css.asp-->
         <link rel="stylesheet" href="table_style.css">
+        <script>
+            function is_zip(my_str) {
+                // based on https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/test
+                // str is the str that we recieve from the input
+                // regex to test if a US zip code is entered
+                const re = /\d{5}/
+                const result = re.test(my_str);
+                return result;
+            }
+        </script>
     </head>
     <body>
         <p>Enter a zip code</p>
