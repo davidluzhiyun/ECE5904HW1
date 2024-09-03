@@ -2,6 +2,8 @@
 <html>
     <head>
         <title>Weather</title>
+        <!--Base on https://www.w3schools.com/html/html_css.asp-->
+        <link rel="stylesheet" href="table_style.css">
     </head>
     <body>
         <p>Enter a zip code</p>
@@ -12,4 +14,30 @@
     <h2 id="temperature"></h2>
     <button id="temperature_unit_change" disabled='disabled'>Switch to Celsius</button>
     <p>3 day Forecast</p>
+    <table id="result">
+        <tr>
+            <th>Day</th>
+            <th>High</th>
+            <th>Low</th>
+            <th>Conditions</th>
+        </tr>
+        <tr>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+        </tr>
+    </table>
 </html>
