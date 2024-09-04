@@ -16,6 +16,16 @@
                 return result;
             }
 
+            function formatDate(date){
+                //Since js defaults to UTC in construction then convert to string use en-US by our setting, messing up the day
+                //we need to add a timezone to fix it
+                //construct date 
+                const objectDate = new Date(date+"-05:00");
+                //output the converted form. Need to set en-US as locle, which messes up the date
+                const converted = objectDate.toLocaleString('en-US', {month:"short", day:"numeric"});
+                return converted;
+            }
+
             function updateView(){
                 // Update everything based on retrieved data, if any
                 if (responseData === ""){
@@ -45,9 +55,11 @@
                 const table = document.getElementById("result");
                 for (let i = 1; i <= 3; i++) {
                     let row = table.rows[i];
-                    dayData = responseData["forecast"]["forecastday"][i-1]["day"];
+                    let dayData = responseData["forecast"]["forecastday"][i-1]["day"];
+
                     //Day
-                    row.cells[0].innerHTML =responseData["forecast"]["forecastday"][i-1]["date"];
+                    let date = responseData["forecast"]["forecastday"][i-1]["date"];
+                    row.cells[0].innerHTML = formatDate(date);
                     //High 
                     row.cells[1].innerHTML = dayData["maxtemp_" + textsToUse[temperatureUnitFahrenheit][0]] + textsToUse[temperatureUnitFahrenheit][1];
                     //Low
@@ -107,6 +119,8 @@
             let responseData = ""
             // variable to check the temperature unit
             let temperatureUnitFahrenheit = true;
+
+            formatDate("2024-09-03")
 
         </script>
         <p>Enter a zip code</p>
