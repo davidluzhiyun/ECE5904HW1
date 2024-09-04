@@ -106,6 +106,7 @@
                 // if it isn't a valid US zip code reject and alert
                 if (!isZip(zip)){
                     alert("Invalid US zip code");
+                    console.log("Invalid US zip code")
                     // revert to previous the valid zip or blank
                     document.getElementById("zip").value = previousZip;
                     return;
