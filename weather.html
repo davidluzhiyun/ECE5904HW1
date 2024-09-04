@@ -5,8 +5,7 @@
         <!--Base on https://www.w3schools.com/html/html_css.asp-->
         <link rel="stylesheet" href="table_style.css">
         <script>
-            // const apiKey = "79c4fe56c5264162aba15443240309";
-            const apiKey = ""
+            const apiKey = "79c4fe56c5264162aba15443240309";
 
             function isZip(my_str) {
                 // based on https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/test
@@ -15,6 +14,17 @@
                 const re = /\d{5}/;
                 const result = re.test(my_str);
                 return result;
+            }
+
+            function updateView(){
+                // Update everything based on retrieved data, if any
+                if (responseData === ""){
+                    // if called when there is no response data yet, don't do anything
+                    return;
+                }
+                // Update weather title
+                let localeText = "Weather for " + responseData["location"]["name"] + ", " + responseData["location"]["region"];
+                document.getElementById("locale").innerHTML = localeText;
             }
 
             async function fetchData(zip) {
@@ -49,10 +59,12 @@
 
                 // change to stuff to handle result
                 // remember to await! or else the this function will keep running when waiting for alert to be closed
-                responseData = await fetchData(zip)
-                //TODO: update previousZip after fetching 
+                responseData = await fetchData(zip);
+                //Update previousZip after fetching if fetch sucessful
                 previousZip = zip;
-                console.log(previousZip)
+                console.log(responseData);
+
+                updateView();
             }
         </script>
     </head>
@@ -62,6 +74,9 @@
             let previousZip = "";
             // variable to log the response data
             let responseData = ""
+            // variable to check the temperature unit
+            let temperatureUnitFahrenheit = true;
+
         </script>
         <p>Enter a zip code</p>
         <input type="text" id="zip"> <button onclick="onZipSubmission()">Get Forecast</button>
