@@ -91,6 +91,8 @@
                         console.log(document.getElementById("zip"))
                         document.getElementById("zip").value = previousZip;
                         // throw error so that the function doesn't keep executing
+                        // for some reason return here would cause the function to keep executing the following lines
+                        // for this reson console would say uncaught error
                         throw error;
                     });
                 const json = await data.json();
@@ -113,6 +115,8 @@
                 responseData = await fetchData(zip);
                 //Update previousZip after fetching if fetch sucessful
                 previousZip = zip;
+
+                //Log the response just in case
                 console.log(responseData);
 
                 updateView();
