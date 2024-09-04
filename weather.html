@@ -70,6 +70,14 @@
 
             }
 
+            function onUnitChange(){
+                //Change the unit
+                //Flip the unit flag
+                temperatureUnitFahrenheit = !temperatureUnitFahrenheit;
+                //Update
+                updateView();
+            }
+
             async function fetchData(zip) {
                 // fetches data from api with fetch API
                 const base = "http://api.weatherapi.com/v1/forecast.json?key=";
@@ -128,7 +136,7 @@
         <h1 id="locale">Weather</h1>
         <p>Current Temperature</p>
         <h2 id="temperature"></h2>
-        <button id="temperature_unit_change" disabled='disabled'>Switch to Celsius</button>
+        <button id="temperature_unit_change" disabled='disabled' onclick="onUnitChange()">Switch to Celsius</button>
         <p>3 day Forecast</p>
         <table id="result">
             <tr>
