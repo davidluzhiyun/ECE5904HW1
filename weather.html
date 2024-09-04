@@ -23,15 +23,31 @@
                     return;
                 }
                 // Update weather title
-                let localeText = "Weather for " + responseData["location"]["name"] + ", " + responseData["location"]["region"];
+                const localeText = "Weather for " + responseData["location"]["name"] + ", " + responseData["location"]["region"];
                 document.getElementById("locale").innerHTML = localeText;
+
+
+                // dictionary to help reduce duplicate code
+                const textsToUse = {true:['f',"°F","Celsius"],
+                                    false:['c',"°C","Fahrenheit"]};
+
+                //Update text for current temperature
+                const tempValue = responseData["current"]["temp_" + textsToUse[temperatureUnitFahrenheit][0]];
+                const tempText = tempValue + textsToUse[temperatureUnitFahrenheit][1];
+                document.getElementById("temperature").innerHTML = tempText;
+                
+                //Update the unit switch botton
+                const unitChangeButton = document.getElementById("temperature_unit_change");
+                unitChangeButton.innerHTML = "Switch to " + textsToUse[temperatureUnitFahrenheit][2];
+                document.getElementById("temperature_unit_change").disabled = false;
+
             }
 
             async function fetchData(zip) {
                 // fetches data from api with fetch API
                 const base = "http://api.weatherapi.com/v1/forecast.json?key=";
                 const ending = "&days=3&aqi=no&alerts=no";
-                const url = base + apiKey + "&q=" + zip;
+                const url = base + apiKey + "&q=" + zip + ending;
                 const data = await fetch(url)
                 // if there is a error log and alert
                     .catch((error) => {console.log(error);
