@@ -41,6 +41,21 @@
                 unitChangeButton.innerHTML = "Switch to " + textsToUse[temperatureUnitFahrenheit][2];
                 document.getElementById("temperature_unit_change").disabled = false;
 
+                //Update the table
+                const table = document.getElementById("result");
+                for (let i = 1; i <= 3; i++) {
+                    let row = table.rows[i];
+                    dayData = responseData["forecast"]["forecastday"][i-1]["day"];
+                    //Day
+                    row.cells[0].innerHTML =responseData["forecast"]["forecastday"][i-1]["date"];
+                    //High 
+                    row.cells[1].innerHTML = dayData["maxtemp_" + textsToUse[temperatureUnitFahrenheit][0]] + textsToUse[temperatureUnitFahrenheit][1];
+                    //Low
+                    row.cells[2].innerHTML = dayData["mintemp_" + textsToUse[temperatureUnitFahrenheit][0]] + textsToUse[temperatureUnitFahrenheit][1];
+                    //Condition
+                    row.cells[3].innerHTML = dayData["condition"]["text"]
+                }
+
             }
 
             async function fetchData(zip) {
