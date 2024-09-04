@@ -32,6 +32,7 @@
                     // if called when there is no response data yet, don't do anything
                     return;
                 }
+
                 // Update weather title
                 const localeText = "Weather for " + responseData["location"]["name"] + ", " + responseData["location"]["region"];
                 document.getElementById("locale").innerHTML = localeText;
@@ -84,7 +85,7 @@
                 const ending = "&days=3&aqi=no&alerts=no";
                 const url = base + apiKey + "&q=" + zip + ending;
                 const data = await fetch(url)
-                // if there is a error log and alert
+                // if there is a error for fetch log and alert
                     .catch((error) => {console.log(error);
                         alert(error);
                         // revert to previous the valid zip or blank
@@ -112,7 +113,21 @@
 
                 // change to stuff to handle result
                 // remember to await! or else the this function will keep running when waiting for alert to be closed
-                responseData = await fetchData(zip);
+                const tempResponseData = await fetchData(zip);
+                
+                // If it is an error json response
+                // Based on https://stackoverflow.com/questions/20804163/check-if-a-key-exists-inside-a-json-object
+                if (tempResponseData.hasOwnProperty("error")){
+                    //alert error
+                    alert(tempResponseData["error"]["message"]);
+                    console.log(tempResponseData["error"]["message"])
+                    // revert input
+                    document.getElementById("zip").value = previousZip;
+                    return;
+                }
+
+                responseData = tempResponseData;
+
                 //Update previousZip after fetching if fetch sucessful
                 previousZip = zip;
 
